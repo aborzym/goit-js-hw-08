@@ -1,7 +1,6 @@
 import throttle from 'lodash.throttle';
 
 const form = document.querySelector('form.feedback-form');
-const submitBtn = document.querySelector('button');
 
 const storedFormData = JSON.parse(localStorage.getItem('feedback-form-state'));
 if (storedFormData) {
@@ -15,7 +14,7 @@ const delayedLocalStorageGetter = throttle((ev) => {
     message: ev.currentTarget.elements.message.value,
   };
   localStorage.setItem('feedback-form-state', JSON.stringify(formData));
-}, 1000);
+}, 250);
 
 form.addEventListener('input', delayedLocalStorageGetter);
 
