@@ -5,19 +5,17 @@ const email = form.elements.email;
 const message = form.elements.message;
 const storedFormData = JSON.parse(localStorage.getItem('feedback-form-state'));
 if (storedFormData) {
-  if (email.value) email.value = storedFormData.email;
-  if (message.value) message.value = storedFormData.message;
+  email.value = storedFormData.email;
+  message.value = storedFormData.message;
 }
 
-const delayedLocalStorageGetter = throttle((ev) => {
+form.addEventListener('input', (ev) => {
   const formData = {
     email: ev.currentTarget.elements.email.value,
     message: ev.currentTarget.elements.message.value,
   };
   localStorage.setItem('feedback-form-state', JSON.stringify(formData));
-}, 250);
-
-form.addEventListener('input', delayedLocalStorageGetter);
+});
 
 form.addEventListener('submit', (ev) => {
   ev.preventDefault();
