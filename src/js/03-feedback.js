@@ -1,11 +1,12 @@
 import throttle from 'lodash.throttle';
 
 const form = document.querySelector('form.feedback-form');
-
+const email = form.elements.email;
+const message = form.elements.message;
 const storedFormData = JSON.parse(localStorage.getItem('feedback-form-state'));
 if (storedFormData) {
-  form.elements.email.value = storedFormData.email;
-  form.elements.message.value = storedFormData.message;
+  if (email.value) email.value = storedFormData.email;
+  if (message.value) message.value = storedFormData.message;
 }
 
 const delayedLocalStorageGetter = throttle((ev) => {
