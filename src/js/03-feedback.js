@@ -20,7 +20,7 @@ const formData = (ev) => {
   localStorage.setItem('feedback-form-state', JSON.stringify(dataObject));
 };
 
-form.addEventListener('keyup', throttle(formData, 1000));
+form.addEventListener('keyup', throttle(formData, 500));
 
 form.addEventListener('submit', (ev) => {
   ev.preventDefault();
