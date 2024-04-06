@@ -3,19 +3,24 @@ import throttle from 'lodash.throttle';
 const form = document.querySelector('form.feedback-form');
 const email = form.elements.email;
 const message = form.elements.message;
-const storedFormData = JSON.parse(localStorage.getItem('feedback-form-state'));
-if (storedFormData) {
+
+if (localStorage.getItem('feedback-form-state')) {
+  const storedFormData = JSON.parse(
+    localStorage.getItem('feedback-form-state')
+  );
   email.value = storedFormData.email;
   message.value = storedFormData.message;
 }
 
-form.addEventListener('input', (ev) => {
-  const formData = {
-    email: ev.currentTarget.elements.email.value,
-    message: ev.currentTarget.elements.message.value,
+const formData = (ev) => {
+  const dataObject = {
+    email: email.value,
+    message: message.value,
   };
-  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
-});
+  localStorage.setItem('feedback-form-state', JSON.stringify(dataObject));
+};
+
+form.addEventListener('keyup', throttle(formData, 1000));
 
 form.addEventListener('submit', (ev) => {
   ev.preventDefault();
