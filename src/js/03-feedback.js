@@ -25,6 +25,6 @@ form.addEventListener('keyup', throttle(formData, 500));
 form.addEventListener('submit', (ev) => {
   ev.preventDefault();
   console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
-  localStorage.clear();
+  localStorage.removeItem('feedback-form-state');
   form.reset();
 });
